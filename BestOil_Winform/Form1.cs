@@ -390,7 +390,14 @@ namespace BestOil_Winform
 
                 Document doc = new Document();
                 string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-                string pdfFilePath = Path.Combine(desktopPath, "PurchaseSummary.pdf");
+                DateTime currentDateTime = DateTime.Now;
+
+               
+                string formattedDateTime = currentDateTime.ToString("yyyy-MM-dd_HH-mm-ss");
+
+               
+                string pdfName = "Purchase_Summary_" + formattedDateTime + ".pdf";
+                string pdfFilePath = Path.Combine(desktopPath, pdfName);
 
                 try
                 {
@@ -405,7 +412,7 @@ namespace BestOil_Winform
                     // Add content to the PDF
                     // Add a title
                     // Add a head
-                    
+
                     Paragraph title = new Paragraph("B E S T    O I L");
                     title.Alignment = Element.ALIGN_CENTER;
                     title.Font.Size = 40f; // Increase the font size for the title
@@ -451,7 +458,7 @@ namespace BestOil_Winform
                     table.AddCell(totalAmount.ToString("0.00") + " AZN");
 
                     // Add the title and table to the document
-                    
+
                     doc.Add(title);
                     doc.Add(new Paragraph("\n\n\n"));
                     doc.Add(head);
@@ -476,7 +483,8 @@ namespace BestOil_Winform
 
 
 
-        private void AddProductToList(string name) {
+        private void AddProductToList(string name)
+        {
             var product = miniCafe.GetFood(name);
             productsName.Add(product.Name);
             if (product.Name == "Hot-Dog")
@@ -484,7 +492,7 @@ namespace BestOil_Winform
                 productsCount.Add(Convert.ToInt32(nudHotDogCount.Value).ToString());
                 productsPrice.Add((Convert.ToInt32(nudHotDogCount.Value) * product.Price).ToString("0.00"));
             }
-            else if(product.Name == "Gamburger")
+            else if (product.Name == "Gamburger")
             {
                 productsCount.Add(Convert.ToInt32(nudGamburgerCount.Value).ToString());
                 productsPrice.Add((Convert.ToInt32(nudGamburgerCount.Value) * product.Price).ToString("0.00"));
@@ -506,8 +514,8 @@ namespace BestOil_Winform
         private void ClearProductFromList()
         {
             productsName.Clear();
-            productsCount.Clear();  
-            productsPrice.Clear();  
+            productsCount.Clear();
+            productsPrice.Clear();
         }
 
     }
